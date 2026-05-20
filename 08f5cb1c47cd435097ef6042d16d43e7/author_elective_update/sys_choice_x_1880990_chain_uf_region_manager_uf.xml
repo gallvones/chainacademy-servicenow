@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="uf" table="x_1880990_chain_uf_region_manager" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>uf</element>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:56</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>uf</sys_name>
+            <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+            <sys_update_name>sys_choice_x_1880990_chain_uf_region_manager_uf</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:56</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>AC - Acre</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>10</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:56</sys_updated_on>
+            <value>AC</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>AL - Alagoas</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>20</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:56</sys_updated_on>
+            <value>AL</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>AP - Amapá</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>30</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:56</sys_updated_on>
+            <value>AP</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>AM - Amazonas</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>40</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:56</sys_updated_on>
+            <value>AM</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>BA - Bahia</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>50</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:56</sys_updated_on>
+            <value>BA</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>CE - Ceará</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>60</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:56</sys_updated_on>
+            <value>CE</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>DF - Distrito Federal</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>70</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>DF</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>ES - Espírito Santo</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>80</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>ES</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>GO - Goiás</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>90</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>GO</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>MA - Maranhão</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>100</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>MA</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>MT - Mato Grosso</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>110</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>MT</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>MS - Mato Grosso do Sul</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>120</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>MS</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>MG - Minas Gerais</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>130</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>MG</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>PA - Pará</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>140</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>PA</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>PB - Paraíba</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>150</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>PB</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>PR - Paraná</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>160</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>PR</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>PE - Pernambuco</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>170</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>PE</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>PI - Piauí</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>180</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>PI</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>RJ - Rio de Janeiro</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>190</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>RJ</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>RN - Rio Grande do Norte</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>200</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>RN</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>RS - Rio Grande do Sul</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>210</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>RS</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>RO - Rondônia</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>220</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:57</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:57</sys_updated_on>
+            <value>RO</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>RR - Roraima</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>230</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:58</sys_updated_on>
+            <value>RR</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>SC - Santa Catarina</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>240</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:58</sys_updated_on>
+            <value>SC</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>SP - São Paulo</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>250</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:58</sys_updated_on>
+            <value>SP</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>SE - Sergipe</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>260</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:58</sys_updated_on>
+            <value>SE</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>uf</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>TO - Tocantins</label>
+            <language>en</language>
+            <name>x_1880990_chain_uf_region_manager</name>
+            <sequence>270</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2026-05-20 21:10:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2026-05-20 21:10:58</sys_updated_on>
+            <value>TO</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

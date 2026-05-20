@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="da60c8ac4785835097ef6042d16d437b" extends="task" label="Proposal" max_length="40" name="x_1880990_chain_proposal" type="collection"/>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="da60c8ac4785835097ef6042d16d437b" extends="task" label="Proposal" max_length="40" name="x_1880990_chain_proposal" type="collection">
+        <element label="Car Year Manufacture" max_length="40" name="car_year_manufacture" type="integer"/>
+        <element label="Car FIPE Value" max_length="20" name="car_fipe_value" type="decimal"/>
+        <element label="Purchase Offer" mandatory="true" max_length="20" name="purchase_offer" type="currency"/>
+        <element label="Car Brand" max_length="40" name="car_brand" type="string"/>
+        <element label="Car Year Model" max_length="40" name="car_year_model" type="integer"/>
+        <element label="Car Model" max_length="40" name="car_model" type="string"/>
+        <element label="Car Name" mandatory="true" max_length="40" name="car_name" type="string"/>
+        <element label="Car Color" max_length="20" name="car_color" type="string"/>
+        <element label="Buyer" mandatory="true" max_length="32" name="buyer" reference="sys_user" type="reference"/>
+        <element label="Owner" max_length="32" name="owner" reference="sys_user" type="reference"/>
+        <element label="External API Error" max_length="4000" name="external_api_error" type="string"/>
+        <element label="State Manager" max_length="32" name="state_manager" reference="sys_user" type="reference"/>
+        <element label="Car Chassi" mandatory="true" max_length="17" name="car_chassi" type="string"/>
+        <element label="Car UF" max_length="2" name="car_uf" type="string"/>
+        <element label="Car Info Snapshot" max_length="4000" name="car_info_snapshot" read_only="true" read_only_option="instance_configured" type="string"/>
+    </element>
 </database>
