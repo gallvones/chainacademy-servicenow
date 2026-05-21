@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <before>false</before>
+        <description>Cria 5 regional managers, 27 registros UF-Region-Manager e 9 owners da chaintechsales</description>
+        <name> Chain Academy - Populate initial data</name>
+        <record_for_rollback>true</record_for_rollback>
+        <script><![CDATA[(function populate() {
+      var EMAIL = 'luizmedeiros327@gmail.com';
+      var EXT_BASE = 'https://chaintechsales.service-now.com';
+      var EXT_USER = 'detran.integration';
+      var EXT_PASS = 'Desafio@2024';
+      var UFRM = 'x_1880990_chain_uf_region_manager';
+      var SCOPE = 'x_1880990_chain';
+      var EXT_FIELD = 'x_1880990_chain_u_chain_external_sys_id';
+      var log = function(m) { gs.info('[ChainData] ' + m); };
+  
+      var app = new GlideRecord('sys_app');
+      app.addQuery('scope', SCOPE);
+      app.query();
+      if (!app.next()) { gs.error('App Chain Academy nao encontrada'); return; }
+      var APP_SYS_ID = app.sys_id.toString();
+      log('App sys_id: ' + APP_SYS_ID);
+  
+      function findOrCreateUser(userName, firstName, lastName, title, externalSysId) {
+          var u = new GlideRecord('sys_user');
+          u.addQuery('user_name', userName);
+          u.query();
+          if (u.next()) {
+              log('skip user: ' + userName);
+              return u.sys_id.toString();
+          }
+          var nu = new GlideRecord('sys_user');
+          nu.initialize();
+          nu.user_name = userName;
+          nu.first_name = firstName || '';
+          nu.last_name = lastName || '';
+          nu.email = EMAIL;
+          nu.title = title || '';
+          nu.active = true; 
+          if (externalSysId) nu.setValue(EXT_FIELD, externalSysId);
+          var id = nu.insert();
+          if (id) log('user: ' + userName);
+          else gs.error('FAILED user: ' + userName);
+          return id ? id.toString() : null;
+      }
+  
+      function assignRole(userSysId, roleName) {
+          if (!userSysId) return; 
+          var r = new GlideRecord('sys_user_role');
+          r.addQuery('name', roleName);
+          r.query();
+          if (!r.next()) { gs.error('role not found: ' + roleName); return; }
+          var roleSysId = r.sys_id.toString();
+          var has = new GlideRecord('sys_user_has_role');
+          has.addQuery('user', userSysId);
+          has.addQuery('role', roleSysId);
+          has.query(); 
+          if (has.next()) { log('skip role: ' + roleName + ' on ' + userSysId); return; }
+          var nh = new GlideRecord('sys_user_has_role');
+          nh.initialize();
+          nh.user = userSysId;
+          nh.role = roleSysId;
+          var id = nh.insert();
+          if (id) log('role: ' + roleName + ' -> ' + userSysId);
+          else gs.error('FAILED role: ' + roleName);
+      }
+  
+      function createUFRM(uf, stateName, region, managerSysId) {
+          var rec = new GlideRecord(UFRM);
+          rec.addQuery('uf', uf);
+          rec.query();
+          if (rec.next()) { log('skip ufrm: ' + uf); return; }
+          var nrec = new GlideRecord(UFRM);
+          nrec.initialize();
+          nrec.setValue('uf', uf);
+          nrec.setValue('state_name', stateName);
+          nrec.setValue('region', region);
+          nrec.setValue('manager', managerSysId);
+          nrec.sys_scope = APP_SYS_ID; 
+          var id = nrec.insert();
+          if (id) log('ufrm: ' + uf);
+          else gs.error('FAILED ufrm: ' + uf);
+      }
+  
+      function fetchExternalUser(extSysId) {
+          try {
+              var rm = new sn_ws.RESTMessageV2();
+              rm.setHttpMethod('GET');
+              rm.setEndpoint(EXT_BASE + '/api/now/table/sys_user/' + extSysId + '?sysparm_fields=sys_id,user_name,first_name,last_name,email,name,title');
+              rm.setBasicAuth(EXT_USER, EXT_PASS);
+              rm.setRequestHeader('Accept', 'application/json');
+              var resp = rm.execute();
+              var status = resp.getStatusCode();
+              if (status != 200) {
+                  gs.error('External API ' + status + ' for sys_id ' + extSysId);
+                  return null;
+              }
+              return JSON.parse(resp.getBody()).result;
+          } catch (e) {
+              gs.error('Exception fetching ' + extSysId + ': ' + e.message);
+              return null;
+          }
+      }
+  
+      var managers = [
+          { user_name: 'abraham.lincoln',   first: 'Abraham',  last: 'Lincoln',    region: 'norte' },
+          { user_name: 'charles.beckley',   first: 'Charles',  last: 'Beckley',    region: 'nordeste' },
+          { user_name: 'george.washington', first: 'George',   last: 'Washington', region: 'centro_oeste' },
+          { user_name: 'taylor.vreeland',   first: 'Taylor',   last: 'Vreeland',   region: 'sudeste' },
+          { user_name: 'megan.burke',       first: 'Megan',    last: 'Burke',      region: 'sul' }
+      ];
+  
+      var managerSysIds = {};
+      for (var i = 0; i < managers.length; i++) {
+          var m = managers[i];
+          var uid = findOrCreateUser(m.user_name, m.first, m.last, 'Regional Manager', null);
+          if (uid) {
+              assignRole(uid, SCOPE + '.regional_manager');
+              managerSysIds[m.region] = uid;
+          }
+      }
+      log('--- managers ok ---');
+  
+      var ufMap = [
+          { uf: 'AC', name: 'Acre',                region: 'norte' },
+          { uf: 'AP', name: 'Amapá',               region: 'norte' },
+          { uf: 'AM', name: 'Amazonas',            region: 'norte' },
+          { uf: 'PA', name: 'Pará',                region: 'norte' },
+          { uf: 'RO', name: 'Rondônia',            region: 'norte' },
+          { uf: 'RR', name: 'Roraima',             region: 'norte' },
+          { uf: 'TO', name: 'Tocantins',           region: 'norte' },
+          { uf: 'AL', name: 'Alagoas',             region: 'nordeste' },
+          { uf: 'BA', name: 'Bahia',               region: 'nordeste' },
+          { uf: 'CE', name: 'Ceará',               region: 'nordeste' },
+          { uf: 'MA', name: 'Maranhão',            region: 'nordeste' },
+          { uf: 'PB', name: 'Paraíba',             region: 'nordeste' },
+          { uf: 'PE', name: 'Pernambuco',          region: 'nordeste' },
+          { uf: 'PI', name: 'Piauí',               region: 'nordeste' },
+          { uf: 'RN', name: 'Rio Grande do Norte', region: 'nordeste' },
+          { uf: 'SE', name: 'Sergipe',             region: 'nordeste' },
+          { uf: 'DF', name: 'Distrito Federal',    region: 'centro_oeste' },
+          { uf: 'GO', name: 'Goiás',               region: 'centro_oeste' },
+          { uf: 'MT', name: 'Mato Grosso',         region: 'centro_oeste' },
+          { uf: 'MS', name: 'Mato Grosso do Sul',  region: 'centro_oeste' },
+          { uf: 'ES', name: 'Espírito Santo',      region: 'sudeste' },
+          { uf: 'MG', name: 'Minas Gerais',        region: 'sudeste' },
+          { uf: 'RJ', name: 'Rio de Janeiro',      region: 'sudeste' },
+          { uf: 'SP', name: 'São Paulo',           region: 'sudeste' },
+          { uf: 'PR', name: 'Paraná',              region: 'sul' },
+          { uf: 'RS', name: 'Rio Grande do Sul',   region: 'sul' },
+          { uf: 'SC', name: 'Santa Catarina',      region: 'sul' }
+      ];
+  
+      for (var j = 0; j < ufMap.length; j++) {
+          var u = ufMap[j];
+          var mgrId = managerSysIds[u.region];
+          if (!mgrId) { gs.error('no manager for region: ' + u.region); continue; }
+          createUFRM(u.uf, u.name, u.region, mgrId);
+      }
+      log('--- ufrm ok ---');
+  
+      var ownerSysIds = [
+          'b9377c460b0131109dae8a8db777b295', 
+          'a6826bf03710200044e0bfc8bcbe5dd4',
+          '62826bf03710200044e0bfc8bcbe5df1',
+          '5137153cc611227c000bbd1bd8cd2005',
+          '16826bf03710200044e0bfc8bcbe5dbc',
+          'f298d2d2c611227b0106c6be7f154bc8',
+          '5137153cc611227c000bbd1bd8cd2007',
+          '4a826bf03710200044e0bfc8bcbe5d7f',
+          '46d44a23a9fe19810012d100cca80666'
+      ];
+  
+      for (var k = 0; k < ownerSysIds.length; k++) {
+          var extId = ownerSysIds[k];
+          var data = fetchExternalUser(extId);
+          if (!data) continue;
+          var uid = findOrCreateUser(data.user_name, data.first_name, data.last_name, data.title, extId);
+          if (uid) assignRole(uid, SCOPE + '.seller');
+      }
+      log('--- owners ok ---');
+  
+      log('=== populate completo ===');
+  })();]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-21 15:32:19</sys_created_on>
+        <sys_id>43425cb04709075097ef6042d16d43cd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name> Chain Academy - Populate initial data</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_script_fix_43425cb04709075097ef6042d16d43cd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-21 15:32:19</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>
