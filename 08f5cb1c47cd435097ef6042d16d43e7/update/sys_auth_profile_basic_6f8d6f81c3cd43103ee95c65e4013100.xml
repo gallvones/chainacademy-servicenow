@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_auth_profile_basic">
+    <sys_auth_profile_basic action="INSERT_OR_UPDATE">
+        <name>Chain External Car Basic Auth</name>
+        <password>﷞﷟﷒89bd63c1c3cd43103ee95c65e401310b﷬﷔1﷬﷭4ZlT2GQ7phZ_wyTbfmmBAw==beEl0Lr98s4otU6vnJn7tHJbgzccMpox7GLq3g==﷮﷯</password>
+        <sys_class_name>sys_auth_profile_basic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-23 02:07:33</sys_created_on>
+        <sys_id>6f8d6f81c3cd43103ee95c65e4013100</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Chain External Car Basic Auth</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_auth_profile_basic_6f8d6f81c3cd43103ee95c65e4013100</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-23 02:07:33</sys_updated_on>
+        <username>detran.integration</username>
+    </sys_auth_profile_basic>
+</record_update>

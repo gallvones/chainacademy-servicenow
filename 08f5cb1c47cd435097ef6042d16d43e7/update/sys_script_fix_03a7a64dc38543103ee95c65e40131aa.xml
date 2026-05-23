@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <before>false</before>
+        <description>Atualiza email dos 5 managers e 9 owners para luizmedeiros327@gmail.com, garante roles e seta external_sys_id nos owners</description>
+        <name> Chain Academy - Update users (email + e</name>
+        <record_for_rollback>true</record_for_rollback>
+        <script><![CDATA[(function updateUsers() {
+      var EMAIL = 'luizmedeiros327@gmail.com';
+      var EXT_BASE = 'https://chaintechsales.service-now.com';
+      var EXT_USER = 'detran.integration';
+      var EXT_PASS = 'Desafio@2024';
+      var SCOPE = 'x_1880990_chain';
+      var EXT_FIELD = 'x_1880990_chain_u_chain_external_sys_id';
+      var log = function(m) { gs.info('[ChainUpdate] ' + m); };
+
+      function updateUser(userName, externalSysId, roleName) {
+          var u = new GlideRecord('sys_user');
+          u.addQuery('user_name', userName);
+          u.query();
+          if (!u.next()) { gs.error('user nao encontrado: ' + userName); return null; }
+          u.email = EMAIL;
+          if (externalSysId) u.setValue(EXT_FIELD, externalSysId);
+          u.update();
+          log('updated: ' + userName + ' | ' + u.first_name + ' ' + u.last_name + ' | ext=' + (externalSysId || '-'));
+
+          var r = new GlideRecord('sys_user_role');
+          r.addQuery('name', roleName);
+          r.query();
+          if (!r.next()) { gs.error('role nao encontrada: ' + roleName); return u.sys_id.toString(); }
+          var has = new GlideRecord('sys_user_has_role');
+          has.addQuery('user', u.sys_id.toString());
+          has.addQuery('role', r.sys_id.toString());
+          has.query();
+          if (!has.next()) {
+              var nh = new GlideRecord('sys_user_has_role');
+              nh.initialize();
+              nh.user = u.sys_id.toString();
+              nh.role = r.sys_id.toString();
+              nh.insert();
+              log('role added: ' + roleName + ' -> ' + userName);
+          }
+          return u.sys_id.toString();
+      }
+  
+      function fetchUserName(extSysId) {
+          try {
+              var rm = new sn_ws.RESTMessageV2();
+              rm.setHttpMethod('GET');
+              rm.setEndpoint(EXT_BASE + '/api/now/table/sys_user/' + extSysId + '?sysparm_fields=user_name,first_name,last_name');
+              rm.setBasicAuth(EXT_USER, EXT_PASS);
+              rm.setRequestHeader('Accept', 'application/json');
+              var resp = rm.execute();
+              if (resp.getStatusCode() != 200) { gs.error('REST ' + resp.getStatusCode() + ' for ' + extSysId); return null; }
+              return JSON.parse(resp.getBody()).result;
+          } catch (e) { gs.error('REST exception ' + extSysId + ': ' + e.message); return null; }
+      }
+
+      var managerUserNames = ['abraham.lincoln','charles.beckley','george.washington','taylor.vreeland','megan.burke'];
+      for (var i = 0; i < managerUserNames.length; i++) {
+          updateUser(managerUserNames[i], null, SCOPE + '.regional_manager');
+      }
+      log('--- managers ok ---');
+
+      var ownerExtSysIds = [
+          'b9377c460b0131109dae8a8db777b295',
+          'a6826bf03710200044e0bfc8bcbe5dd4',
+          '62826bf03710200044e0bfc8bcbe5df1',
+          '5137153cc611227c000bbd1bd8cd2005',
+          '16826bf03710200044e0bfc8bcbe5dbc',
+          'f298d2d2c611227b0106c6be7f154bc8',
+          '5137153cc611227c000bbd1bd8cd2007',
+          '4a826bf03710200044e0bfc8bcbe5d7f',
+          '46d44a23a9fe19810012d100cca80666'
+      ];
+      for (var k = 0; k < ownerExtSysIds.length; k++) {
+          var ext = ownerExtSysIds[k];
+          var data = fetchUserName(ext);
+          if (!data) continue;
+          updateUser(data.user_name, ext, SCOPE + '.seller');
+      }
+      log('--- owners ok ---');
+      log('=== update completo ===');
+  })();]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-22 21:02:24</sys_created_on>
+        <sys_id>03a7a64dc38543103ee95c65e40131aa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name> Chain Academy - Update users (email + e</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_script_fix_03a7a64dc38543103ee95c65e40131aa</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-22 21:02:24</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>
