@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysevent_email_action">
+    <sysevent_email_action action="INSERT_OR_UPDATE">
+        <action_insert>false</action_insert>
+        <action_update>true</action_update>
+        <active>true</active>
+        <advanced_condition/>
+        <affected_field_on_event/>
+        <category display_value="Approval" name="Approval">1a9d02137f232200ee2e108c3ffa9113</category>
+        <collection>x_1880990_chain_proposal</collection>
+        <condition table="x_1880990_chain_proposal">stateCHANGESTO40^stateCHANGESTO70^EQ<item display_value="Rejected by Owner" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="40"/>
+            <item display_value="Rejected by Regional Manager" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="70"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </condition>
+        <content_type>text/html</content_type>
+        <default_digest>false</default_digest>
+        <default_interval/>
+        <description/>
+        <digest_from/>
+        <digest_html/>
+        <digest_reply_to/>
+        <digest_separator_html><![CDATA[<p>&nbsp;</p>
+<hr>
+<p>&nbsp;</p>]]></digest_separator_html>
+        <digest_separator_text><![CDATA[\n--------------------------------------------------------------------------------\n]]></digest_separator_text>
+        <digest_subject/>
+        <digest_template/>
+        <digest_text/>
+        <digest_type>single</digest_type>
+        <digestable>false</digestable>
+        <enable_dynamic_translation>false</enable_dynamic_translation>
+        <event_name>activate.life.cycle.migration</event_name>
+        <event_parm_1>false</event_parm_1>
+        <event_parm_2>false</event_parm_2>
+        <exclude_delegates>false</exclude_delegates>
+        <force_delivery>false</force_delivery>
+        <from/>
+        <generation_type>engine</generation_type>
+        <importance/>
+        <include_attachments>false</include_attachments>
+        <item>event.parm1</item>
+        <item_table/>
+        <mandatory>false</mandatory>
+        <message/>
+        <message_html><![CDATA[<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+<h2 style="color: #c0392b;">Proposta rejeitada</h2>
+<p>Ol&aacute; ${buyer.first_name}, infelizmente sua proposta de compra do ve&iacute;culo <strong>${car_name}</strong> foi rejeitada.</p>
+<table style="border-collapse: collapse; width: 100%; background: #fdecea; margin: 16px 0;">
+<tbody>
+<tr>
+<td style="padding: 8px; font-weight: bold;">Proposta:</td>
+<td style="padding: 8px;">${number}</td>
+</tr>
+<tr>
+<td style="padding: 8px; font-weight: bold;">Ve&iacute;culo:</td>
+<td style="padding: 8px;">${car_name} - ${car_brand} ${car_model} ${car_color}</td>
+</tr>
+<tr>
+<td style="padding: 8px; font-weight: bold;">Chassi:</td>
+<td style="padding: 8px;">${car_chassi}</td>
+</tr>
+<tr>
+<td style="padding: 8px; font-weight: bold;">Propriet&aacute;rio:</td>
+<td style="padding: 8px;">${owner.first_name} ${owner.last_name}</td>
+</tr>
+<tr>
+<td style="padding: 8px; font-weight: bold;">Sua oferta:</td>
+<td style="padding: 8px;">${purchase_offer}</td>
+</tr>
+<tr>
+<td style="padding: 8px; font-weight: bold;">Estado final:</td>
+<td style="padding: 8px;">${state}</td>
+</tr>
+</tbody>
+</table>
+<p>Voc&ecirc; pode tentar uma nova oferta para o mesmo ou outro ve&iacute;culo no portal do Detran SP.</p>
+<p style="color: #888; font-size: 12px; margin-top: 32px;">Chain Academy &mdash; Detran SP</p>
+</div>]]></message_html>
+        <message_list/>
+        <message_text/>
+        <name>proposal_rejected</name>
+        <omit_watermark>false</omit_watermark>
+        <order>100</order>
+        <push_message_only>false</push_message_only>
+        <recipient_fields>buyer</recipient_fields>
+        <recipient_groups/>
+        <recipient_users/>
+        <reply_to/>
+        <send_self>true</send_self>
+        <sms_alternate/>
+        <style/>
+        <subject>Proposta rejeitada: ${number} - ${car_name}</subject>
+        <subscribable>false</subscribable>
+        <sys_class_name>sysevent_email_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-25 20:21:01</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>038a3d4e83490310692cc596feaad357</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>proposal_rejected</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sysevent_email_action_038a3d4e83490310692cc596feaad357</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-25 20:21:01</sys_updated_on>
+        <sys_version>2</sys_version>
+        <template/>
+        <type>email</type>
+        <weight>0</weight>
+    </sysevent_email_action>
+</record_update>

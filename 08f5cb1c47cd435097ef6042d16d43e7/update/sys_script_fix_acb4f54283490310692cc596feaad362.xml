@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <before>false</before>
+        <description/>
+        <name>Chain - enable notifications for manager</name>
+        <record_for_rollback>true</record_for_rollback>
+        <script><![CDATA[(function enableNotifications() {
+      var log = function(m) { gs.info('[ChainNotif] ' + m); };
+
+      var managerUserNames = ['abraham.lincoln','charles.beckley','george.washington','taylor.vreeland','megan.burke'];
+      var processed = 0;
+
+      for (var i = 0; i < managerUserNames.length; i++) {
+          if (enableForUser(managerUserNames[i])) processed++;
+      }
+
+      var owners = new GlideRecord('sys_user');
+      owners.addQuery('x_1880990_chain_u_chain_external_sys_id', '!=', '');
+      owners.query();
+      while (owners.next()) {   
+          if (enableForUser(owners.user_name.toString())) processed++;
+      }
+
+      log('=== Total notification=Enable: ' + processed + ' ===');
+  
+      function enableForUser(userName) {
+          var u = new GlideRecord('sys_user');
+          u.addQuery('user_name', userName);
+          u.query();  
+          if (!u.next()) { gs.error('[ChainNotif] user nao encontrado: ' + userName); return false; }
+
+          u.notification = 2;   
+          u.update();
+          log('notification enabled: ' + userName);
+          return true;
+      }
+  })();]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-25 19:53:52</sys_created_on>
+        <sys_id>acb4f54283490310692cc596feaad362</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Chain - enable notifications for manager</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_script_fix_acb4f54283490310692cc596feaad362</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-25 19:53:52</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>
