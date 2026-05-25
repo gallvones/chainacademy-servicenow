@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_1880990_chain.MagicLinkToken</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Gera e valida tokens HMAC para magic links de aprovacao via email</description>
+        <mobile_callable>false</mobile_callable>
+        <name>MagicLinkToken</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var MagicLinkToken = Class.create();
+  MagicLinkToken.prototype = {
+      initialize: function() {
+          this.secret = gs.getProperty('x_1880990_chain.magic_link_secret');
+          this.ttlSeconds = parseInt(gs.getProperty('x_1880990_chain.magic_link_ttl_seconds', '259200'), 10);
+      },
+  
+      generate: function(proposalSysId, ownerSysId, action) {
+          var exp = Math.floor(new Date().getTime() / 1000) + this.ttlSeconds;
+          var payload = { p: proposalSysId, o: ownerSysId, a: action, e: exp };
+          var payloadJson = JSON.stringify(payload);
+          var payloadB64 = this._urlSafe(gs.base64Encode(payloadJson));
+          var sig = this._sign(payloadB64);
+          return payloadB64 + '.' + sig;
+      },    
+
+      verify: function(token) {
+          if (!token || token.indexOf('.') === -1) {
+              return { valid: false, reason: 'malformed' };
+          }
+          var parts = token.split('.');
+          var payloadB64 = parts[0];
+          var sigGiven = parts[1];
+          var sigExpected = this._sign(payloadB64);
+          if (sigGiven !== sigExpected) {
+              return { valid: false, reason: 'invalid_signature' };
+          }
+          try {
+              var payloadJson = gs.base64Decode(this._urlSafeReverse(payloadB64));
+              var payload = JSON.parse(payloadJson);
+              var now = Math.floor(new Date().getTime() / 1000);
+              if (payload.e < now) {
+                  return { valid: false, reason: 'expired' };
+              }
+              return { valid: true, payload: payload };
+          } catch (e) {
+              return { valid: false, reason: 'parse_error: ' + e.message };
+          } 
+      },
+
+      _sign: function(payloadB64) {
+          var digest = new GlideDigest();
+          return digest.getSHA256Hex(this.secret + ':' + payloadB64);
+      },
+  
+      _urlSafe: function(b64) {
+          return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+      },
+  
+      _urlSafeReverse: function(urlSafe) {
+          var b64 = urlSafe.replace(/-/g, '+').replace(/_/g, '/');
+          while (b64.length % 4) b64 += '=';
+          return b64; 
+      },
+
+      type: 'MagicLinkToken'
+  };]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-25 23:23:17</sys_created_on>
+        <sys_id>8444664e838d0310692cc596feaad391</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>MagicLinkToken</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_script_include_8444664e838d0310692cc596feaad391</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-25 23:23:17</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description>Secret HMAC para assinar tokens de magic link (aprovacao via email)</description>
+        <ignore_cache>false</ignore_cache>
+        <is_private>true</is_private>
+        <name>x_1880990_chain.magic_link_secret</name>
+        <read_roles/>
+        <suffix>magic_link_secret</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-25 23:14:59</sys_created_on>
+        <sys_id>7802ea0a838d0310692cc596feaad3e8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1880990_chain.magic_link_secret</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_properties_7802ea0a838d0310692cc596feaad3e8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-25 23:14:59</sys_updated_on>
+        <type>password2</type>
+        <value>{{gpaes}}8Q3n/FdtiQ0UvZ6woVGMSmfaAN79oqkp8ABly63xw3oN37qZAExt/jEMFJ0XJRe7eGDg50B2/u1B&#13;
+Y9knET86O6bjTxbrUS9qlxsGLkbeGZU=</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=7802ea0a838d0310692cc596feaad3e8"/>
+</record_update>
