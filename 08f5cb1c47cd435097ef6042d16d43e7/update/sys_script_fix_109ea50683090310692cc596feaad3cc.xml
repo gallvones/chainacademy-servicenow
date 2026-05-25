@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <before>false</before>
+        <description>Atualiza email e Notification Device de todos os managers + owners para usar aliases únicos do Gmail (luizmedeiros327+&lt;userid&gt;@gmail.com)</description>
+        <name>Chain Academy - Setup unique gmail alias</name>
+        <record_for_rollback>true</record_for_rollback>
+        <script><![CDATA[(function setupAliases() {
+      var INBOX = 'luizmedeiros327';
+      var DOMAIN = 'gmail.com';
+      var log = function(m) { gs.info('[ChainAliases] ' + m); };
+
+      var managerUserNames = ['abraham.lincoln','charles.beckley','george.washington','taylor.vreeland','megan.burke'];
+      var processed = 0; 
+
+      for (var i = 0; i < managerUserNames.length; i++) {
+          if (updateUserEmail(managerUserNames[i])) processed++;
+      }
+
+      var owners = new GlideRecord('sys_user');
+      owners.addQuery('x_1880990_chain_u_chain_external_sys_id', '!=', '');
+      owners.query();
+      while (owners.next()) {   
+          if (updateUserEmail(owners.user_name.toString())) processed++;
+      }
+  
+      log('=== Total atualizados: ' + processed + ' ===');
+
+      function updateUserEmail(userName) {
+          var u = new GlideRecord('sys_user');
+          u.addQuery('user_name', userName);
+          u.query();  
+          if (!u.next()) { gs.error('[ChainAliases] user nao encontrado: ' + userName); return false; }
+
+          var alias = userName.replace(/\./g, '');
+          var newEmail = INBOX + '+' + alias + '@' + DOMAIN;
+
+          u.email = newEmail;
+          u.update(); 
+          log('user updated: ' + userName + ' -> ' + newEmail);
+
+          var dev = new GlideRecord('cmn_notif_device');
+          dev.addQuery('user', u.sys_id.toString());
+          dev.addQuery('type', 'Email');
+          dev.query();
+          if (dev.next()) {
+              dev.email_address = newEmail;
+              dev.active = true;
+              dev.update();
+              log('device updated: ' + userName);
+          } else {
+              var nd = new GlideRecord('cmn_notif_device');
+              nd.initialize();
+              nd.user = u.sys_id.toString();
+              nd.type = 'Email';
+              nd.name = 'Primary Email';
+              nd.email_address = newEmail;
+              nd.active = true;
+              nd.insert();
+              log('device created: ' + userName);
+          }
+
+          return true;
+      }
+  })();]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-25 19:26:48</sys_created_on>
+        <sys_id>109ea50683090310692cc596feaad3cc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Chain Academy - Setup unique gmail alias</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_script_fix_109ea50683090310692cc596feaad3cc</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-25 19:26:48</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>

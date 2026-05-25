@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_1880990_chain_proposal</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>enrich_proposal_from_external</name>
+        <order>200</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous) {
+      try { 
+          if (!current.car_name || !current.car_chassi) {
+              return finalize(current, 'Nome do carro e chassi sao obrigatorios');
+          }
+  
+          var rm = new sn_ws.RESTMessageV2('Chain External Car Service', 'getCarByNameAndChassi');
+          rm.setStringParameterNoEscape('name', encodeURIComponent(current.car_name.toString()));
+          rm.setStringParameterNoEscape('chassi', encodeURIComponent(current.car_chassi.toString()));
+
+          var resp = rm.execute(); 
+          var status = resp.getStatusCode();
+          if (status != 200) {
+              return finalize(current, 'API externa status=' + status + ' ' + resp.getErrorMessage());
+          }
+  
+          var body = JSON.parse(resp.getBody());
+          if (!body.result || body.result.length === 0) {
+              return finalize(current, 'Veiculo nao encontrado: nome="' + current.car_name + '", chassi="' + current.car_chassi + '"');
+          }
+  
+          var car = body.result[0];
+          current.car_brand = car.u_marca || '';
+          current.car_model = car.u_modelo || '';
+          current.car_color = car.u_cor || '';
+          current.car_year_model = parseInt(car.u_ano_modelo, 10) || 0;
+          current.car_year_manufacture = parseInt(car.u_ano_fabricacao, 10) || 0;
+          current.car_uf = car.u_uf || '';
+          current.car_fipe_value = parseFloat(car.u_valor_tabela_fipe) || 0;
+          current.car_info_snapshot = car.u_marca + ' ' + car.u_modelo + ' / Cor: ' + car.u_cor + ' / FIPE: R$ ' + car.u_valor_tabela_fipe + ' / UF: ' + car.u_uf;
+
+          if (car.u_proprietario && car.u_proprietario.value) {
+              var u = new GlideRecord('sys_user');
+              u.addQuery('x_1880990_chain_u_chain_external_sys_id', car.u_proprietario.value);
+              u.query();
+              if (u.next()) {   
+                  current.owner = u.sys_id.toString();
+              } else {
+                  return finalize(current, 'Owner externo ' + car.u_proprietario.value + ' nao mapeado em sys_user');
+              }
+          }
+
+          if (current.car_uf) {
+              var ufrm = new GlideRecord('x_1880990_chain_uf_region_manager');
+              ufrm.addQuery('uf', current.car_uf.toString());
+              ufrm.query();
+              if (ufrm.next()) {
+                  current.state_manager = ufrm.manager.toString();
+              } else {
+                  return finalize(current, 'Regional manager nao encontrado para UF ' + current.car_uf);
+              }
+          } 
+
+          finalize(current, null);
+
+      } catch (e) {
+          gs.error('[enrich] exception: ' + e.message);
+          finalize(current, 'Erro inesperado: ' + e.message);
+      }
+
+      function finalize(current, errorMsg) {
+          if (errorMsg) {
+              current.external_api_error = errorMsg;
+              current.state = 10;
+          } else {
+              current.state = 20;
+          }
+          current.update();
+      }
+  })(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-25 16:26:39</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>6e64090283c10310692cc596feaad376</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>enrich_proposal_from_external</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_script_6e64090283c10310692cc596feaad376</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-25 18:06:04</sys_updated_on>
+        <template/>
+        <when>async_always</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=6e64090283c10310692cc596feaad376"/>
+</record_update>
