@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <before>false</before>
+        <description>Mudo email de todos os owner e todos os managers! Mude o do buyer jorge manualemnte </description>
+        <name>Chain Academy - Update demo emails</name>
+        <record_for_rollback>true</record_for_rollback>
+        <script><![CDATA[ var log = function(m) { gs.info('[ChainDemo] ' + m); };
+
+  var OWNER_EMAIL = 'luizgalvao.dev@gmail.com';
+  var MANAGER_EMAIL = 'luizmedeiros324@gmail.com';
+
+  var managerUserNames = ['abraham.lincoln','charles.beckley','george.washington','taylor.vreeland','megan.burke'];
+  var processed = 0;  
+
+  for (var i = 0; i < managerUserNames.length; i++) {
+      if (updateUser(managerUserNames[i], MANAGER_EMAIL)) processed++;
+  }
+  
+  var owners = new GlideRecord('sys_user');
+  owners.addQuery('x_1880990_chain_u_chain_external_sys_id', '!=', '');
+  owners.query();
+  while (owners.next()) {
+      if (updateUser(owners.user_name.toString(), OWNER_EMAIL)) processed++;
+  }
+
+  log('=== Total atualizados: ' + processed + ' ===');
+  
+  function updateUser(userName, newEmail) {
+      var u = new GlideRecord('sys_user');
+      u.addQuery('user_name', userName);
+      u.query();
+      if (!u.next()) { gs.error('[ChainDemo] user nao encontrado: ' + userName); return false; }
+
+      u.email = newEmail;
+      u.update();
+      log('user updated: ' + userName + ' -> ' + newEmail);
+
+      var dev = new GlideRecord('cmn_notif_device');
+      dev.addQuery('user', u.sys_id.toString());
+      dev.addQuery('type', 'Email');
+      dev.query();
+      if (dev.next()) {
+          dev.email_address = newEmail;
+          dev.active = true;
+          dev.update();
+          log('device updated: ' + userName);
+      } else {
+          var nd = new GlideRecord('cmn_notif_device');
+          nd.initialize();
+          nd.user = u.sys_id.toString();
+          nd.type = 'Email';
+          nd.name = 'Primary Email';
+          nd.email_address = newEmail;
+          nd.active = true;
+          nd.insert();
+          log('device created: ' + userName);
+      }
+      return true;
+  }
+]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-27 14:17:43</sys_created_on>
+        <sys_id>3f6a76ea838d0710692cc596feaad355</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Chain Academy - Update demo emails</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_script_fix_3f6a76ea838d0710692cc596feaad355</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-27 15:11:07</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>

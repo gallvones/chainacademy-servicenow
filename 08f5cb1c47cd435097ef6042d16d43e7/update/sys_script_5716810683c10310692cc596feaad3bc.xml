@@ -36,7 +36,7 @@
       var allowed = {
           '10': ['20'],
           '20': ['30', '40', '50'],
-          '30': ['10', '20'],   
+          '30': ['10', '20', '40', '50'],   
           '40': [],
           '50': ['60', '70'],
           '60': [],
@@ -57,7 +57,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>5716810683c10310692cc596feaad3bc</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>validade_state_transition</sys_name>
         <sys_overrides/>
         <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
@@ -65,7 +65,7 @@
         <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
         <sys_update_name>sys_script_5716810683c10310692cc596feaad3bc</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-05-25 18:14:13</sys_updated_on>
+        <sys_updated_on>2026-05-27 13:13:22</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

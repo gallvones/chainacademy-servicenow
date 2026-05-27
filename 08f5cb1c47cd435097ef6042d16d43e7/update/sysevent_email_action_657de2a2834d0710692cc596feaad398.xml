@@ -7,7 +7,7 @@
         <affected_field_on_event/>
         <category display_value="Approval" name="Approval">1a9d02137f232200ee2e108c3ffa9113</category>
         <collection>x_1880990_chain_proposal</collection>
-        <condition table="x_1880990_chain_proposal">stateCHANGESTO50^EQ<item display_value="Awaiting Regional Manager Approval" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="50"/>
+        <condition table="x_1880990_chain_proposal">stateCHANGESTO30^EQ<item display_value="Counter Proposal Requested" endquery="false" field="state" goto="false" newquery="false" operator="CHANGESTO" or="false" value="30"/>
             <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
         </condition>
         <content_type>text/html</content_type>
@@ -41,9 +41,9 @@
         <mandatory>false</mandatory>
         <message/>
         <message_html><![CDATA[<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-<h2 style="color: #2c3e50;">Ol&aacute; ${state_manager.first_name},</h2>
-<p>O propriet&aacute;rio aprovou uma proposta de compra de ve&iacute;culo na sua regi&atilde;o (${car_uf}). Voc&ecirc; &eacute; o aprovador regional respons&aacute;vel.</p>
-<table style="border-collapse: collapse; width: 100%; background: #f5f5f5; margin: 16px 0;">
+<h2 style="color: #f39c12;">Contraproposta recebida</h2>
+<p>Ol&aacute; ${buyer.first_name}, o propriet&aacute;rio <strong>${owner.first_name} ${owner.last_name}</strong> enviou uma contraproposta para o ve&iacute;culo <strong>${car_name}</strong>.</p>
+<table style="border-collapse: collapse; width: 100%; background: #fff8e1; margin: 16px 0;">
 <tbody>
 <tr>
 <td style="padding: 8px; font-weight: bold;">Proposta:</td>
@@ -58,60 +58,52 @@
 <td style="padding: 8px;">${car_chassi}</td>
 </tr>
 <tr>
-<td style="padding: 8px; font-weight: bold;">UF:</td>
-<td style="padding: 8px;">${car_uf}</td>
-</tr>
-<tr>
 <td style="padding: 8px; font-weight: bold;">Valor FIPE:</td>
-<td style="padding: 8px;">R$ ${car_fipe_value}</td>
+<td style="padding: 8px;">${car_fipe_value}</td>
 </tr>
 <tr>
-<td style="padding: 8px; font-weight: bold;">Comprador:</td>
-<td style="padding: 8px;">${buyer.first_name} ${buyer.last_name}</td>
+<td style="padding: 8px; font-weight: bold;">Sua oferta original:</td>
+<td style="padding: 8px;">${purchase_offer}</td>
 </tr>
 <tr>
-<td style="padding: 8px; font-weight: bold;">Propriet&aacute;rio:</td>
-<td style="padding: 8px;">${owner.first_name} ${owner.last_name}</td>
-</tr>
-<tr>
-<td style="padding: 8px; font-weight: bold;">Oferta aceita:</td>
-<td style="padding: 8px; color: #27ae60; font-size: 1.2em;">R$ ${purchase_offer}</td>
+<td style="padding: 8px; font-weight: bold; color: #f39c12; font-size: 1.2em;">Contraproposta:</td>
+<td style="padding: 8px; color: #f39c12; font-size: 1.2em;">${counter_offer}</td>
 </tr>
 </tbody>
 </table>
-${mail_script:magic_link_manager_buttons}
+${mail_script:magic_link_buyer_counter_buttons}
 <p style="color: #888; font-size: 12px; margin-top: 32px;">Chain Academy &mdash; Detran SP</p>
 </div>]]></message_html>
         <message_list/>
         <message_text/>
-        <name>proposal_awaiting_manager</name>
+        <name>proposal_counter_received</name>
         <omit_watermark>false</omit_watermark>
         <order>100</order>
         <push_message_only>false</push_message_only>
-        <recipient_fields>state_manager</recipient_fields>
+        <recipient_fields>buyer</recipient_fields>
         <recipient_groups/>
         <recipient_users/>
         <reply_to/>
         <send_self>true</send_self>
         <sms_alternate/>
         <style/>
-        <subject>Aprovacao regional necessaria: ${number} - ${car_name} (${car_uf})</subject>
+        <subject>Contraproposta recebida: ${number} - ${car_name}</subject>
         <subscribable>false</subscribable>
         <sys_class_name>sysevent_email_action</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-05-25 19:35:08</sys_created_on>
+        <sys_created_on>2026-05-27 13:20:07</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>2befadc683090310692cc596feaad332</sys_id>
-        <sys_mod_count>3</sys_mod_count>
-        <sys_name>proposal_awaiting_manager</sys_name>
+        <sys_id>657de2a2834d0710692cc596feaad398</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>proposal_counter_received</sys_name>
         <sys_overrides/>
         <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
         <sys_policy/>
         <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
-        <sys_update_name>sysevent_email_action_2befadc683090310692cc596feaad332</sys_update_name>
+        <sys_update_name>sysevent_email_action_657de2a2834d0710692cc596feaad398</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-05-27 15:11:48</sys_updated_on>
+        <sys_updated_on>2026-05-27 15:13:39</sys_updated_on>
         <sys_version>2</sys_version>
         <template/>
         <type>email</type>

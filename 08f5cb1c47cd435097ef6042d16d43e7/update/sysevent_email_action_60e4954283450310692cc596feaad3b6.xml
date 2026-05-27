@@ -71,12 +71,7 @@
 </tr>
 </tbody>
 </table>
-<p style="margin-top: 24px;">Para aprovar, rejeitar ou contraproposta, em breve voc&ecirc; poder&aacute; responder este email com as palavras-chave:</p>
-<ul>
-<li><strong>APROVAR ${number}</strong></li>
-<li><strong>REJEITAR ${number} [motivo opcional]</strong></li>
-<li><strong>CONTRAPROPOSTA ${number} [valor]</strong></li>
-</ul>
+${mail_script:magic_link_owner_buttons}
 <p style="color: #888; font-size: 12px; margin-top: 32px;">Chain Academy &mdash; Detran SP</p>
 </div>]]></message_html>
         <message_list/>
@@ -100,7 +95,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>60e4954283450310692cc596feaad3b6</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>proposal_awaiting_owner</sys_name>
         <sys_overrides/>
         <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
@@ -108,7 +103,7 @@
         <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
         <sys_update_name>sysevent_email_action_60e4954283450310692cc596feaad3b6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-05-25 17:53:22</sys_updated_on>
+        <sys_updated_on>2026-05-27 13:38:39</sys_updated_on>
         <sys_version>2</sys_version>
         <template/>
         <type>email</type>
