@@ -1,86 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
     <sys_ws_operation action="INSERT_OR_UPDATE">
         <active>true</active>
-        <consumes>application/json,application/xml,text/xml</consumes>
-        <consumes_customized>false</consumes_customized>
+        <consumes>application/json,application/xml,text/xml,application/x-www-form-urlencoded</consumes>
+        <consumes_customized>true</consumes_customized>
         <default_operation_uri/>
         <enforce_acl/>
-        <http_method>GET</http_method>
+        <http_method>POST</http_method>
         <name>counter_submit</name>
         <operation_script><![CDATA[(function process(request, response) {
-      var token = request.queryParams.token;
-      if (Array.isArray(token)) token = token[0];
+      try {
+          var token = request.queryParams.token;
+          if (Array.isArray(token)) token = token[0];
 
-      response.setContentType('text/html');
+          response.setContentType('text/html');
 
-      if (!token) {
-          return _html(response, 400, 'Token ausente', 'Link invalido (sem token).');
-      }
-  
-      var mlt = new x_1880990_chain.MagicLinkToken();
-      var v = mlt.verify(token);
-      if (!v.valid) {
-          return _html(response, 401, 'Link invalido', 'Token invalido ou expirado.');
-      }
-  
-      if (v.payload.a !== 'counter') {
-          return _html(response, 400, 'Acao invalida', 'Token nao corresponde a contraproposta.');
-      }
-  
-      var counterValue = _parseCounterValue(request);
-      if (!counterValue || counterValue <= 0) {
-          return _html(response, 400, 'Valor invalido', 'Informe um valor de contraproposta positivo.');
-      }
-  
-      var p = new GlideRecord('x_1880990_chain_proposal');
-      if (!p.get(v.payload.p)) {
-          return _html(response, 404, 'Proposta nao encontrada', 'A proposta deste link nao existe mais.');
-      }
-  
-      if (p.state.toString() !== '20') {
-          return _html(response, 409, 'Estado invalido',
-              'A proposta nao esta mais aguardando sua decisao (estado atual: ' + p.state.toString() + ').');
-      }
-  
-      if (p.owner.toString() !== v.payload.o) {
-          return _html(response, 403, 'Permissao negada', 'Voce nao e o proprietario desta proposta.');
-      }
-
-      p.counter_offer = counterValue;
-      p.state = 30;
-      p.work_notes = 'Contraproposta enviada via magic link: R$ ' + counterValue;
-      p.update();
-  
-      return _html(response, 200, 'Contraproposta enviada',
-          'Sua contraproposta de R$ ' + counterValue + ' foi enviada para ' + p.buyer.getDisplayValue() +
-          '. O comprador sera notificado e pode aceitar, rejeitar ou enviar nova oferta. Voce pode fechar esta janela.');
-
-      function _parseCounterValue(request) {
-          try {
-              var contentType = (request.getHeader('Content-Type') || '').toLowerCase();
-              if (contentType.indexOf('application/x-www-form-urlencoded') >= 0) {
-                  var raw = request.body.dataString || '';
-                  var pairs = raw.split('&');
-                  for (var i = 0; i < pairs.length; i++) {
-                      var kv = pairs[i].split('=');
-                      if (kv[0] === 'counter_offer') {
-                          return parseFloat(decodeURIComponent(kv[1].replace(/\+/g, ' ')));
-                      }
-                  }   
-              } else {
-                  var data = request.body.data;
-                  if (data && data.counter_offer) return parseFloat(data.counter_offer);
-              }
-          } catch (e) {
-              gs.error('[counter_submit] parse error: ' + e.message);
+          if (!token) {
+              return _html(response, 400, 'Token ausente', 'Link invalido (sem token).');
           }
-          return null;
+  
+          var mlt = new x_1880990_chain.MagicLinkToken();
+          var v = mlt.verify(token);
+          if (!v.valid) {
+              return _html(response, 401, 'Link invalido', 'Token invalido ou expirado.');
+          }
+
+          if (v.payload.a !== 'counter') {
+              return _html(response, 400, 'Acao invalida', 'Token nao corresponde a contraproposta.');
+          }
+  
+          var rawCounter = request.queryParams.counter_offer;
+          if (Array.isArray(rawCounter)) rawCounter = rawCounter[0];
+          gs.info('[counter_submit] rawCounter=' + rawCounter + ' typeof=' + (typeof rawCounter));
+  
+          var counterValue = parseFloat(rawCounter);
+          if (!counterValue || counterValue <= 0) {
+              return _html(response, 400, 'Valor invalido', 'Informe um valor de contraproposta positivo. Recebido: ' + rawCounter);
+          }
+  
+          var p = new GlideRecord('x_1880990_chain_proposal');
+          if (!p.get(v.payload.p)) {
+              return _html(response, 404, 'Proposta nao encontrada', 'A proposta deste link nao existe mais.');
+          } 
+  
+          if (p.state.toString() !== '20') {
+              return _html(response, 409, 'Estado invalido',
+                  'A proposta nao esta mais aguardando sua decisao (estado atual: ' + p.state.toString() + ').');
+          }
+  
+          if (p.owner.toString() !== v.payload.o) {
+              return _html(response, 403, 'Permissao negada', 'Voce nao e o proprietario desta proposta.');
+          }
+  
+          p.counter_offer.setValue('USD;' + counterValue);
+          p.state = 30;
+          p.work_notes = 'Contraproposta enviada via magic link: R$ ' + counterValue;
+          p.update();
+  
+          return _html(response, 200, 'Contraproposta enviada',
+              'Sua contraproposta de R$ ' + counterValue + ' foi enviada para ' + p.buyer.getDisplayValue() +
+              '. O comprador sera notificado e pode aceitar, rejeitar ou enviar nova oferta. Voce pode fechar esta janela.');
+
+      } catch (e) {   
+          gs.error('[counter_submit] EXCEPTION: ' + e + ' | stack: ' + (e.stack || 'none'));
+          try {
+              response.setStatus(500);
+              response.setContentType('text/html');
+              response.getStreamWriter().writeString(
+                  '<html><body><h1>Erro interno</h1><pre>' + e + '</pre></body></html>'
+              );
+          } catch (e2) {}
       }
 
       function _html(response, status, title, message) {
           response.setStatus(status);
           var color = status === 200 ? '#27ae60' : '#c0392b';
-          var body =
+          var body =  
               '<html><head><meta charset="utf-8"><title>' + title + '</title></head>' +
               '<body style="font-family: Arial, sans-serif; max-width: 600px; margin: 80px auto; text-align: center;">' +
               '<h1 style="color: ' + color + ';">' + title + '</h1>' +
@@ -103,14 +97,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-05-27 13:10:40</sys_created_on>
         <sys_id>38ab26ae830d0710692cc596feaad3f2</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>counter_submit</sys_name>
         <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
         <sys_policy/>
         <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
         <sys_update_name>sys_ws_operation_38ab26ae830d0710692cc596feaad3f2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-05-27 13:10:40</sys_updated_on>
+        <sys_updated_on>2026-05-27 16:03:13</sys_updated_on>
         <web_service_definition display_value="Chain Magic Link">2a956ace838d0310692cc596feaad3e6</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>
