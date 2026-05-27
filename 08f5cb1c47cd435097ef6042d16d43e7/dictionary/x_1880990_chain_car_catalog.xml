@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="18cb7bea83854710692cc596feaad3cc" label="Car Catalog" max_length="40" name="x_1880990_chain_car_catalog" type="collection">
+        <element default="true" label="Active" max_length="40" name="active" type="boolean"/>
+        <element label="Car Chassi" max_length="17" name="car_chassi" type="string"/>
+        <element label="Image URL" max_length="300" name="image_url" type="url"/>
+        <element label="Car Name" max_length="40" name="car_name" type="string"/>
+    </element>
+</database>

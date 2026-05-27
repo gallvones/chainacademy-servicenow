@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_fix">
+    <sys_script_fix action="INSERT_OR_UPDATE">
+        <before>false</before>
+        <description> Popula 10 carros do catálogo do dashboard com URL da imagem em db_image</description>
+        <name>Chain Academy - Populate car catalog</name>
+        <record_for_rollback>true</record_for_rollback>
+        <script><![CDATA[var BASE_URL = gs.getProperty('glide.servlet.uri');
+
+  var cars = [
+      { name: 'Beta 1',     chassi: 'DLGY1RD5B5QMCOIZF' },
+      { name: 'Iota 54',    chassi: '5O2ERWRV3ZQD24KEL' },
+      { name: 'Epsilon 2',  chassi: 'L6DO2VKIW0NJOXJVH' },
+      { name: 'Alpha 33',   chassi: 'UCHNVSWRWJ8OS41P6' },
+      { name: 'Beta 45',    chassi: 'W1V34345XYR73TGNJ' },
+      { name: 'Theta 84',   chassi: '80VUA5W5TL1XFYY63' },
+      { name: 'Gamma 48',   chassi: 'JTM663XEXY8YSGCPO' },
+      { name: 'Epsilon 96', chassi: 'HI6RZBK6DD4LACVGU' },
+      { name: 'Beta 95',    chassi: 'TFLXKG89HPKXPVIIV' },
+      { name: 'Alpha 42',   chassi: '93HVCAPEVQIGEB3OX' }
+  ];
+
+  var log = function(m) { gs.info('[ChainCatalog] ' + m); };
+  var created = 0, skipped = 0;
+
+  for (var i = 0; i < cars.length; i++) {
+      var c = cars[i];
+
+      var existing = new GlideRecord('x_1880990_chain_car_catalog');
+      existing.addQuery('car_chassi', c.chassi);
+      existing.query();
+      if (existing.next()) {
+          skipped++;  
+          log('skip: ' + c.name);
+          continue;
+      }
+
+      var rec = new GlideRecord('x_1880990_chain_car_catalog');
+      rec.initialize();
+      rec.car_name = c.name;
+      rec.car_chassi = c.chassi;
+      rec.image_url = BASE_URL + c.chassi + '.png';
+      rec.active = true;
+      var id = rec.insert();
+      if (id) {
+          created++;
+          log('created: ' + c.name + ' -> ' + c.chassi);
+      } else {
+          gs.error('[ChainCatalog] FAILED: ' + c.name);
+      }
+  }
+
+  log('=== Total criados: ' + created + ', skipped: ' + skipped + ' ===');]]></script>
+        <sys_class_name>sys_script_fix</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-05-27 19:14:17</sys_created_on>
+        <sys_id>9d9e736283c54710692cc596feaad3d2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Chain Academy - Populate car catalog</sys_name>
+        <sys_package display_value="Chain Academy" source="x_1880990_chain">08f5cb1c47cd435097ef6042d16d43e7</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Chain Academy">08f5cb1c47cd435097ef6042d16d43e7</sys_scope>
+        <sys_update_name>sys_script_fix_9d9e736283c54710692cc596feaad3d2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-05-27 19:14:17</sys_updated_on>
+        <unloadable>false</unloadable>
+    </sys_script_fix>
+</record_update>
